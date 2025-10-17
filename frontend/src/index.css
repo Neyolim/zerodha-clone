@@ -13,3 +13,7 @@ body {
 code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
+
+.nav-link {
+  margin-left: 40px;
+}
