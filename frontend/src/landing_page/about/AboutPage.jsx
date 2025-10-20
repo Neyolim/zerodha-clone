@@ -5,8 +5,8 @@ import Team from './Team'
 export default function AboutPage() {
     return (
         <>
-            <Hero/>
-            <Team/>
+            <Hero />
+            <Team />
         </>
     )
 }
