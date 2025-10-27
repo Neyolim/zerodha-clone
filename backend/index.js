@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const { PositionModel } = require("./models/PositionModel");
 const { HoldingModel } = require("./models/HoldingModel");
+const { OrderModel } = require("./models/OrderModel");
 
 dotenv.config();
 
@@ -41,6 +42,23 @@ app.get("/api/positions", async (req, res) => {
     res.status(200).json({ success: true, data: positions });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post("/api/newOrder", async (req, res) => {
+  try {
+    const { name, qty, price, mode } = req.body;
+
+    if (!name || !qty || !price || !mode)
+      return res.status(400).send("Missing required fields");
+
+    const newOrder = new OrderModel({ name, qty, price, mode });
+    await newOrder.save();
+
+    res.status(201).send("Order saved successfully");
+  } catch (err) {
+    console.error("Error saving order:", err);
+    res.status(500).send("Server error while saving order");
   }
 });
 
